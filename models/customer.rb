@@ -5,9 +5,9 @@ class Customer
   attr_reader :id, :name, :funds
 
   def initialize(options)
-    @id = options['id'] if options['id']
+    @id = options['id'].to_i if options['id']
     @name = options['name']
-    @funds = options['funds']
+    @funds = options['funds'].to_i
   end
 
   def self.delete_all()
@@ -20,7 +20,13 @@ class Customer
     RETURNING id"
     values = [@name, @funds]
     result = SqlRunner.run(sql, values)
-    @id = result[0]['id']
+    @id = result[0]['id'].to_i
+  end
+
+  def delete
+    sql = "DELETE FROM customers WHERE id = $1"
+    values = [@id]
+    SqlRunner.run(sql, values)
   end
 
 end
