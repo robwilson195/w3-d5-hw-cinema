@@ -15,6 +15,13 @@ class Ticket
     SqlRunner.run(sql)
   end
 
+  def self.find_one_by_id(id)
+    sql = "SELECT * FROM tickets WHERE id = $1"
+    values = [id]
+    result = SqlRunner.run(sql, values)[0]
+    return Ticket.new(result)
+  end
+
   def save
     sql = "INSERT INTO tickets (customer_id, film_id) VALUES ($1, $2)
     RETURNING id"

@@ -16,6 +16,13 @@ class Customer
     SqlRunner.run(sql)
   end
 
+  def self.find_one_by_id(id)
+    sql = "SELECT * FROM customers WHERE id = $1"
+    values = [id]
+    result = SqlRunner.run(sql, values)[0]
+    return Customer.new(result)
+  end
+
   def save
     sql = "INSERT INTO customers (name, funds) VALUES ($1, $2)
     RETURNING id"
