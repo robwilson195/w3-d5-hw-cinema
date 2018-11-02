@@ -1,5 +1,6 @@
 require_relative('../db/sql_runner')
 require_relative('film.rb')
+require_relative('ticket.rb')
 
 class Customer
 
@@ -54,6 +55,25 @@ class Customer
     value = [@id]
     result = SqlRunner.run(sql, value)
     return result.map {|film| Film.new(film)}
+  end
+
+  def can_afford?(film_title)
+    sql = "SELECT * FROM films WHERE title = $1"
+    value = [film_title]
+    result = SqlRunner.run(sql, value)
+    film_object = Film.new(result[0])
+    return @funds >= film_object.price.to_i
+  end
+
+  def buy_ticket_by_title(film_title)
+    if can_afford?(film_title)
+      chosen_film = Film.find_one_by_title(film_title)
+      new_ticket = Ticket.new({'customer_id' => @id, 'film_id' => chosen_film.id})
+      new_ticket.save
+      @funds -= chosen_film.price
+    else
+      return nil
+    end
   end
 
 end

@@ -19,10 +19,17 @@ class Film
 
   def self.find_one_by_id(id)
     sql = "SELECT * FROM films WHERE id = $1"
-    values = [id]
-    result = SqlRunner.run(sql, values)[0]
+    value = [id]
+    result = SqlRunner.run(sql, value)[0]
     return Film.new(result)
   end
+
+  def self.find_one_by_title(title)
+    sql = "SELECT * FROM films WHERE title = $1"
+    value = [title]
+    result = SqlRunner.run(sql, value)[0]
+    return Film.new(result)
+end
 
   def save
     sql = "INSERT INTO films (title, price) VALUES ($1, $2)
