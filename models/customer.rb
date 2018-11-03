@@ -76,4 +76,11 @@ class Customer
     end
   end
 
+  def tickets
+    sql = "SELECT * FROM tickets WHERE customer_id = $1"
+    value = [@id]
+    result = SqlRunner.run(sql, value)
+    return result.count
+  end
+
 end
