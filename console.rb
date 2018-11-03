@@ -17,6 +17,15 @@ film1.save
 film2 = Film.new({'title' => 'La La Land', 'price' => '9'})
 film2.save
 
+# screening1 = ({'film_id' => film1.id, 'film_title' => film1.title, 'show_time' => '16.30'})
+# screening1.save
+# screening2 = ({'film_id' => film2.id, 'film_title' => film2.title, 'show_time' => '17.30'})
+# screening2.save
+# screening3 = ({'film_id' => film1.id, 'film_title' => film1.title, 'show_time' => '18.30'})
+# screening3.save
+# screening4 = ({'film_id' => film2.id, 'film_title' => film2.title, 'show_time' => '19.30'})
+# screening4.save
+
 ticket1 = Ticket.new({'customer_id' => customer2.id, 'film_id' => film2.id})
 ticket1.save
 ticket2 = Ticket.new({'customer_id' => customer1.id, 'film_id' => film1.id})
